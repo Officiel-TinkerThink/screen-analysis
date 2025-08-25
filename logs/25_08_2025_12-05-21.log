@@ -1,0 +1,20 @@
+{"new_width": 1829, "new_height": 983, "timestamp": "2025-08-25T05:05:41.728577Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T05:05:41.734167Z", "level": "info", "event": "Starting Ollama analysis with model: llava"}
+{"timestamp": "2025-08-25T05:05:41.758928Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"timestamp": "2025-08-25T05:06:17.702769Z", "level": "info", "event": "Image analyzed successfully for ollama"}
+{"result": "'The image sh...ers involved.'", "timestamp": "2025-08-25T05:06:17.702769Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1829, "new_height": 983, "timestamp": "2025-08-25T05:06:17.743925Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T05:06:17.744934Z", "level": "info", "event": "Starting Screen2Words analysis with model: google/pix2struct-screen2words-base"}
+{"timestamp": "2025-08-25T05:06:17.750236Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"timestamp": "2025-08-25T05:06:30.785035Z", "level": "info", "event": "Screen2Words analysis completed successfully"}
+{"result": "'screen shows... a sports app'", "timestamp": "2025-08-25T05:06:30.947803Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1829, "new_height": 983, "timestamp": "2025-08-25T05:07:49.991978Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T05:07:49.992487Z", "level": "info", "event": "Starting Ollama analysis with model: llava"}
+{"timestamp": "2025-08-25T05:07:49.995494Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"timestamp": "2025-08-25T05:08:07.405200Z", "level": "info", "event": "Image analyzed successfully for ollama"}
+{"result": "'The image ap...ional design.'", "timestamp": "2025-08-25T05:08:07.406246Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1829, "new_height": 983, "timestamp": "2025-08-25T05:08:07.441926Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T05:08:07.442935Z", "level": "info", "event": "Starting Screen2Words analysis with model: google/pix2struct-screen2words-base"}
+{"timestamp": "2025-08-25T05:08:07.444970Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"timestamp": "2025-08-25T05:08:18.147621Z", "level": "info", "event": "Screen2Words analysis completed successfully"}
+{"result": "'page display...xt in the app'", "timestamp": "2025-08-25T05:08:18.280267Z", "level": "info", "event": "Image analyzed successfully"}

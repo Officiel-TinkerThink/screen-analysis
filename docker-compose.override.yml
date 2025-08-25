@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  app:
+    volumes:
+      - ./src:/app/src
+      - ./static:/app/static
+      - ./templates:/app/templates
+    environment:
+      - DEBUG=1
+      - RELOAD=1
+    command: >
+      sh -c "uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload"

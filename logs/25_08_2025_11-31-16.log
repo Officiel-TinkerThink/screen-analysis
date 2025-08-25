@@ -1,0 +1,68 @@
+{"new_width": 1788, "new_height": 1006, "timestamp": "2025-08-25T04:31:56.243162Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T04:31:56.260562Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"timestamp": "2025-08-25T04:32:46.560493Z", "level": "info", "event": "Image analyzed successfully for ollama"}
+{"result": "'The image is...to was taken.'", "timestamp": "2025-08-25T04:32:46.560493Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1788, "new_height": 1006, "timestamp": "2025-08-25T04:32:46.606521Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T04:32:46.612173Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"result": "page displaying the video of a sports team", "timestamp": "2025-08-25T04:33:01.769131Z", "level": "info", "event": "Image analyzed successfully for screen2words"}
+{"result": "'page display...a sports team'", "timestamp": "2025-08-25T04:33:02.025944Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1788, "new_height": 1006, "timestamp": "2025-08-25T04:33:02.096972Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T04:33:02.105107Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"timestamp": "2025-08-25T04:33:46.418713Z", "level": "info", "event": "Image analyzed successfully for ollama"}
+{"result": "'The image ca...th a website.'", "timestamp": "2025-08-25T04:33:46.419866Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1788, "new_height": 1006, "timestamp": "2025-08-25T04:33:46.470462Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T04:33:46.475763Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"timestamp": "2025-08-25T04:34:45.294871Z", "level": "info", "event": "Image analyzed successfully for ollama"}
+{"result": "'The image is...ts in sports.'", "timestamp": "2025-08-25T04:34:45.296927Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1788, "new_height": 1006, "timestamp": "2025-08-25T04:34:45.342449Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T04:34:45.347561Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"result": "page displaying a sports video", "timestamp": "2025-08-25T04:34:55.601295Z", "level": "info", "event": "Image analyzed successfully for screen2words"}
+{"result": "'page display... sports video'", "timestamp": "2025-08-25T04:34:55.729882Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1788, "new_height": 1006, "timestamp": "2025-08-25T04:34:55.776020Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T04:34:55.781201Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"timestamp": "2025-08-25T04:35:34.488957Z", "level": "info", "event": "Image analyzed successfully for ollama"}
+{"result": "'The image ap...heir content.'", "timestamp": "2025-08-25T04:35:34.488957Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1788, "new_height": 1006, "timestamp": "2025-08-25T04:35:34.529166Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T04:35:34.533851Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"result": "page displaying a sports video", "timestamp": "2025-08-25T04:35:43.770183Z", "level": "info", "event": "Image analyzed successfully for screen2words"}
+{"result": "'page display... sports video'", "timestamp": "2025-08-25T04:35:43.893205Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1788, "new_height": 1006, "timestamp": "2025-08-25T04:35:43.936884Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T04:35:43.943333Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"result": "page displaying the screen capture", "timestamp": "2025-08-25T04:35:53.519285Z", "level": "info", "event": "Image analyzed successfully for screen2words"}
+{"result": "'page display...creen capture'", "timestamp": "2025-08-25T04:35:53.656904Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1788, "new_height": 1006, "timestamp": "2025-08-25T04:35:53.698360Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T04:35:53.704157Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"timestamp": "2025-08-25T04:36:39.822385Z", "level": "info", "event": "Image analyzed successfully for ollama"}
+{"result": "'The image ca...nd its tools.'", "timestamp": "2025-08-25T04:36:39.822385Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1788, "new_height": 1006, "timestamp": "2025-08-25T04:36:39.865161Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T04:36:39.870716Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"result": "page displaying the screen capture", "timestamp": "2025-08-25T04:36:49.565355Z", "level": "info", "event": "Image analyzed successfully for screen2words"}
+{"result": "'page display...creen capture'", "timestamp": "2025-08-25T04:36:49.708116Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1788, "new_height": 1006, "timestamp": "2025-08-25T04:36:49.749659Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T04:36:49.755964Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"result": "page displaying the screen capture", "timestamp": "2025-08-25T04:37:01.015625Z", "level": "info", "event": "Image analyzed successfully for screen2words"}
+{"result": "'page display...creen capture'", "timestamp": "2025-08-25T04:37:01.159995Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1788, "new_height": 1006, "timestamp": "2025-08-25T04:37:01.204241Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T04:37:01.210094Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"timestamp": "2025-08-25T04:37:36.245338Z", "level": "info", "event": "Image analyzed successfully for ollama"}
+{"result": "'The image sh... environment.'", "timestamp": "2025-08-25T04:37:36.245338Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1788, "new_height": 1006, "timestamp": "2025-08-25T04:37:36.288773Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T04:37:36.296429Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"timestamp": "2025-08-25T04:38:14.620747Z", "level": "info", "event": "Image analyzed successfully for ollama"}
+{"result": "'The image sh...nt displayed.'", "timestamp": "2025-08-25T04:38:14.620747Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1788, "new_height": 1006, "timestamp": "2025-08-25T04:38:14.658320Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T04:38:14.664852Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"timestamp": "2025-08-25T04:38:46.764467Z", "level": "info", "event": "Image analyzed successfully for ollama"}
+{"result": "'The image sh...sis purposes.'", "timestamp": "2025-08-25T04:38:46.765005Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1788, "new_height": 1006, "timestamp": "2025-08-25T04:38:46.809250Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T04:38:46.813895Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"result": "page displaying the screen capture", "timestamp": "2025-08-25T04:38:55.954379Z", "level": "info", "event": "Image analyzed successfully for screen2words"}
+{"result": "'page display...creen capture'", "timestamp": "2025-08-25T04:38:56.095107Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1788, "new_height": 1006, "timestamp": "2025-08-25T04:38:56.141704Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T04:38:56.147335Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"result": "page displaying the screen capture", "timestamp": "2025-08-25T04:39:05.667635Z", "level": "info", "event": "Image analyzed successfully for screen2words"}
+{"result": "'page display...creen capture'", "timestamp": "2025-08-25T04:39:05.802537Z", "level": "info", "event": "Image analyzed successfully"}
+{"new_width": 1788, "new_height": 1006, "timestamp": "2025-08-25T04:39:05.842354Z", "level": "info", "event": "Image resized successfully"}
+{"timestamp": "2025-08-25T04:39:05.848020Z", "level": "info", "event": "Image encoded to base64 then to string (utf-8) successfully"}
+{"timestamp": "2025-08-25T04:39:41.105231Z", "level": "info", "event": "Image analyzed successfully for ollama"}
+{"result": "'The image di...or debugging.'", "timestamp": "2025-08-25T04:39:41.105784Z", "level": "info", "event": "Image analyzed successfully"}

@@ -1,0 +1,53 @@
+import logging
+import os
+from datetime import datetime
+import structlog
+
+
+class CustomLogger:
+    def __init__(self, log_dirs="logs"):
+        self.log_dir = os.path.join(os.getcwd(), log_dirs)
+        os.makedirs(self.log_dir, exist_ok=True)
+        
+        log_file = f"{datetime.now().strftime('%d_%m_%Y_%H-%M-%S')}.log"
+        self.log_file_path = os.path.join(self.log_dir, log_file)
+
+    def get_logger(self, name=__file__):
+        logger_name = os.path.basename(name)
+
+        # Configure logging for console + file (both JSON)
+        file_handler = logging.FileHandler(self.log_file_path)
+        file_handler.setLevel(logging.INFO)
+        file_handler.setFormatter(logging.Formatter('%(message)s'))
+
+        # Configure console handler
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(logging.INFO)
+        console_handler.setFormatter(logging.Formatter('%(message)s'))
+
+        logging.basicConfig(
+            format='%(message)s',
+            level=logging.INFO,
+            handlers=[file_handler, console_handler]
+        )
+
+        # Structlog configure
+        structlog.configure(
+            processors=[
+                structlog.processors.TimeStamper(fmt='iso', utc=True, key="timestamp"), 
+                structlog.processors.add_log_level,
+                structlog.processors.EventRenamer(to="event"),
+                structlog.processors.JSONRenderer()
+            ],
+            logger_factory=structlog.stdlib.LoggerFactory(),
+            cache_logger_on_first_use=True
+        )
+
+        return structlog.getLogger(logger_name)
+
+if __name__ == "__main__":
+    logger = CustomLogger().get_logger(__file__)
+    logger.info("User uploaded a file", user_id=123, file_name="report.pdf")
+    logger.error("Failed to process PDF", error="File not found", user_id=123)
+        
+        

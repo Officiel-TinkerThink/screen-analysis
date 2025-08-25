@@ -1,0 +1,3 @@
+.venv/
+analysis_history.db
+app.log

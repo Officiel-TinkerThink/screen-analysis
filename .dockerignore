@@ -1,0 +1,89 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+
+# Virtual environment
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Local development
+.env
+.env.*
+!.env.example
+
+# Docker
+Dockerfile
+docker-compose.override.yml
+
+# Git
+.git/
+.gitignore
+
+# Local data
+*.db
+*.sqlite3
+
+# Cache and temp files
+.cache/
+.temp/
+*~
+
+# Project specific
+.venv/
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+
+# Large files
+*.h5
+*.pth
+*.pt
+*.pkl
+*.bin
+*.onnx
+*.tflite
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environment
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Project specific
+saved_screenshots/
+*.log
+analysis_history.db
