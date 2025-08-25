@@ -2,7 +2,9 @@ import time
 import torch
 from PIL import Image
 from transformers import Pix2StructProcessor, Pix2StructForConditionalGeneration
-from ..utils.image_utils import resize_image
+from typing import Optional
+from utils.image_utils import resize_image
+from logger import GLOBAL_LOGGER as log
 
 class Screen2WordsService:
     def __init__(self, model_name: str = "google/pix2struct-screen2words-base"):
@@ -51,14 +53,13 @@ class Screen2WordsService:
             
             # Resize image if necessary
             resized_image = resize_image(image)
-            
             # Prepare inputs
             inputs = self.processor(
                 images=resized_image, 
                 text=prompt if prompt else "",
                 return_tensors="pt"
             ).to(self.device)
-            
+            log.info(f"Get inputs from Screen2Words")
             # Generate output
             with torch.no_grad():
                 outputs = self.model.generate(**inputs)
@@ -68,6 +69,7 @@ class Screen2WordsService:
             
             # Log performance
             duration = time.time() - start_time
+            log.info(f"Get responsed from Screen2Words")
             
             return result
             

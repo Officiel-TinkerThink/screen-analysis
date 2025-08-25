@@ -1,13 +1,13 @@
 import uvicorn
-from src.main import app
+from screen_analysis.main import app
 
 if __name__ == "__main__":
     uvicorn.run(
-        "src.main:app",
+        "screen_analysis.main:app",
         host="0.0.0.0",
         port=8000,
         reload=True,
-        reload_dirs=["src"],
+        reload_dirs=["screen_analysis"],
         reload_excludes=["*.pyc", "*.pyo", "*~"],
         log_level="info"
     )

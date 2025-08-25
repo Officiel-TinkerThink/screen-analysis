@@ -88,7 +88,7 @@ function stopCapture() {
 
 async function analyzeWithBackend(imageBase64, backend, captureTime) {
     try {
-        const response = await fetch('/analyze', {
+        const response = await fetch('/api/analyze', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

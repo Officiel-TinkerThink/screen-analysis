@@ -17,14 +17,11 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first to leverage Docker cache
-COPY requirements.txt .
-
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
 # Copy application code
 COPY . .
+
+# Install Python dependencies
+RUN pip install -e .
 
 # Create non-root user and switch to it
 RUN useradd -m appuser && \
@@ -35,4 +32,4 @@ USER appuser
 EXPOSE 8000
 
 # Command to run the application
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "screen_analysis.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

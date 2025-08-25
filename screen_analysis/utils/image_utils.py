@@ -3,7 +3,8 @@ import base64
 from PIL import Image
 from pathlib import Path
 from typing import Tuple, Optional
-from ..core.config import settings
+from core.config import settings
+from logger import GLOBAL_LOGGER as log
 
 def resize_image(image: Image.Image, max_pixels: int = 1_800_000) -> Image.Image:
     """
@@ -24,6 +25,7 @@ def resize_image(image: Image.Image, max_pixels: int = 1_800_000) -> Image.Image
     scale_factor = (max_pixels / current_pixels) ** 0.5
     new_width = int(image.width * scale_factor)
     new_height = int(image.height * scale_factor)
+    log.info(f"Resize image from {image.width}x{image.height} to {new_width}x{new_height}")
     
     return image.resize((new_width, new_height), Image.LANCZOS)
 

@@ -8,11 +8,11 @@ from PIL import Image
 from typing import Optional
 import logging
 
-from ..core.config import settings
-from ..models.schemas import AnalysisRequest, AnalysisResponse
-from ..services.ollama_service import analyze_with_ollama
-from ..services.screen2words_service import screen2words_service
-from ..utils.image_utils import resize_image
+from screen_analysis.core.config import settings
+from screen_analysis.models.schemas import AnalysisRequest, AnalysisResponse
+from screen_analysis.services.ollama_service import analyze_with_ollama
+from screen_analysis.services.screen2words_service import screen2words_service
+from screen_analysis.utils.image_utils import resize_image
 
 router = APIRouter()
 templates = Jinja2Templates(directory=str(settings.TEMPLATES_DIR))
@@ -23,7 +23,7 @@ async def root(request: Request):
     """Serve the main application page."""
     return templates.TemplateResponse("index.html", {"request": request})
 
-@router.post("/api/analyze", response_model=AnalysisResponse)
+@router.post("/analyze", response_model=AnalysisResponse)
 async def analyze_image(request: AnalysisRequest):
     """
     Analyze an image using the specified backend.
@@ -70,7 +70,7 @@ async def analyze_image(request: AnalysisRequest):
         logger.exception("Error processing analysis request")
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.post("/api/analyze/file", response_model=AnalysisResponse)
+@router.post("/analyze/file", response_model=AnalysisResponse)
 async def analyze_image_file(
     file: UploadFile = File(...),
     prompt: str = "Analyze this screen capture and describe what you see in detail.",

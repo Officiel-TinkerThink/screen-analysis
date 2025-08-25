@@ -1,0 +1,6 @@
+{"timestamp": "2025-08-25T09:44:37.849778Z", "level": "info", "event": "Resize image from 1920x1080 to 1788x1006"}
+{"timestamp": "2025-08-25T09:45:24.311594Z", "level": "info", "event": "Get Response from Ollama"}
+{"timestamp": "2025-08-25T09:45:24.312104Z", "level": "info", "event": "Get Parsed Response from Ollama"}
+{"timestamp": "2025-08-25T09:45:24.318894Z", "level": "info", "event": "Resize image from 1920x1080 to 1788x1006"}
+{"timestamp": "2025-08-25T09:45:24.781118Z", "level": "info", "event": "Get inputs from Screen2Words"}
+{"timestamp": "2025-08-25T09:45:33.643203Z", "level": "info", "event": "Get responsed from Screen2Words"}

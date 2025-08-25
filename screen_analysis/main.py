@@ -5,8 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 
-from .core.config import settings
-from .api.routes import router as api_router
+from screen_analysis.core.config import settings
+from screen_analysis.api.routes import router as api_router
 
 # Configure logging
 logging.basicConfig(
@@ -40,7 +40,7 @@ app.add_middleware(
 app.mount("/static", StaticFiles(directory=str(settings.STATIC_DIR)), name="static")
 
 # Include API routes
-app.include_router(api_router, prefix=settings.API_V1_STR)
+app.include_router(api_router, prefix=settings.API_STR)
 
 # Exception handlers
 @app.exception_handler(RequestValidationError)
