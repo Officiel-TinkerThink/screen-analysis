@@ -6,4 +6,4 @@ app.log
 logs/
 __pycache__
 
-screen_analysis/screen_analysis.egg-info/
+*.egg-info/

@@ -9,6 +9,10 @@ python-dotenv>=1.0.0,<2.0.0
 # Image Processing
 pillow>=11.3.0,<12.0.0
 
+# logging
+structlog>=25.1.0
+
+
 # ML/DL
 transformers>=4.55.4,<5.0.0
 torch>=2.8.0,<3.0.0
