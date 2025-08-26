@@ -5,8 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 
-from screen_analysis.core.config import settings
-from screen_analysis.api.routes import router as api_router
+from core.config import settings
+from api.routes import router as api_router
 
 # Configure logging
 logging.basicConfig(

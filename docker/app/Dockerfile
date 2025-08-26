@@ -15,7 +15,8 @@ WORKDIR /app
 # Install minimal system dependencies
 RUN apt-get update && apt-get upgrade -y && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get install -y curl
 
 # Copy application code
 COPY . .
@@ -32,4 +33,4 @@ USER appuser
 EXPOSE 8000
 
 # Command to run the application
-CMD ["uvicorn", "screen_analysis.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["uvicorn", "screen_analysis.main:app", "--host", "0.0.0.0", "--port", "8000"]

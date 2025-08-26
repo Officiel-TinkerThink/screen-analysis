@@ -1,9 +1,10 @@
 .venv/
 analysis_history.db
 app.log
+*.pyc
 
-*/__pycache__/*
+*/__pycache__/
 logs/
-__pycache__
+__pycache__/
 
 *.egg-info/

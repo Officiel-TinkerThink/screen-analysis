@@ -8,11 +8,11 @@ from PIL import Image
 from typing import Optional
 import logging
 
-from screen_analysis.core.config import settings
-from screen_analysis.models.schemas import AnalysisRequest, AnalysisResponse
-from screen_analysis.services.ollama_service import analyze_with_ollama
-from screen_analysis.services.screen2words_service import screen2words_service
-from screen_analysis.utils.image_utils import resize_image
+from core.config import settings
+from models.schemas import AnalysisRequest, AnalysisResponse
+from services.ollama_service import analyze_with_ollama
+from services.screen2words_service import screen2words_service
+from utils.image_utils import resize_image
 
 router = APIRouter()
 templates = Jinja2Templates(directory=str(settings.TEMPLATES_DIR))

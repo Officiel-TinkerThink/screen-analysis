@@ -1,7 +1,7 @@
 import json
 import requests
 from PIL import Image
-from ..core.config import settings
+from core.config import settings
 from utils.image_utils import encode_image_to_base64, resize_image
 from logger import GLOBAL_LOGGER as log
 
@@ -40,7 +40,7 @@ def analyze_with_ollama(
         response = requests.post(
             settings.OLLAMA_URL,
             json=payload,
-            timeout=60  # 60 seconds timeout
+            timeout=300  # 60 seconds timeout
         )
         response.raise_for_status()
         log.info(f"Get Response from Ollama")
