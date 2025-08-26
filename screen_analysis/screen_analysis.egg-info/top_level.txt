@@ -1,7 +1,0 @@
-api
-core
-logger
-models
-prompt
-services
-utils
