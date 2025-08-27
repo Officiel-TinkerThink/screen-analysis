@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   ollama:
-    build:
-      context: .
-      dockerfile: docker/ollama/Dockerfile
+    image: bornouksyn13/screen-analysis-ollama:latest
     container_name: ollama
     ports:
       - "11434:11434"
@@ -17,9 +15,7 @@ services:
       retries: 5
 
   app:
-    build:
-      context: .
-      dockerfile: docker/app/Dockerfile
+    image: bornouksyn13/screen-analysis-app:latest
     container_name: screen-analysis
     ports:
       - "8000:8000"

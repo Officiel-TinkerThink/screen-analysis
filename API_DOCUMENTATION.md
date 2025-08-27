@@ -10,7 +10,7 @@ This API does not currently require authentication.
 
 ### 1. Analyze Image
 
-**Endpoint:** `POST /analyze`
+**Endpoint:** `POST api/analyze`
 
 Analyzes a provided image using the specified AI model and returns the analysis result.
 
