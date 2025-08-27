@@ -87,3 +87,7 @@ ENV/
 saved_screenshots/
 *.log
 analysis_history.db
+
+# Docker archive
+docker_archive/
+
