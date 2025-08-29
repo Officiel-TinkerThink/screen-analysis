@@ -32,21 +32,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function initScreenCapture() {
     try {
-        // Request screen share
+        // Show the preview container
+        const previewContainer = document.querySelector('.preview-container');
+        previewContainer.style.display = 'block';
+        
+        // Request screen share with higher quality settings
         screenStream = await navigator.mediaDevices.getDisplayMedia({
             video: { 
                 cursor: "never",
-                displaySurface: "monitor"
+                displaySurface: "monitor",
+                width: { ideal: 1920 },      // Request higher resolution
+                height: { ideal: 1080 },
+                frameRate: { ideal: 30, max: 60 },  // Request higher frame rate
+                resizeMode: "none"           // Prevent automatic resizing
             }
         });
         
-        // Set up video element
+        // Set up preview element
+        const previewElement = document.getElementById('screen-preview');
+        previewElement.srcObject = screenStream;
+        
+        // Set up video element for capture with quality settings
         videoElement = document.createElement('video');
         videoElement.srcObject = screenStream;
+        videoElement.playsInline = true;
+        videoElement.muted = true;
+        videoElement.setAttribute('autoplay', '');
+        videoElement.setAttribute('playsinline', '');
+        
         await videoElement.play();
+        
+        // Hide the placeholder image
+        document.getElementById('screen-capture').classList.add('hidden');
         
         // Handle when user stops sharing via browser UI
         screenStream.getVideoTracks()[0].onended = () => {
+            previewContainer.style.display = 'none'; // Hide the preview when sharing is stopped
             if (isCapturing) {
                 stopCapture();
             }
@@ -138,11 +159,10 @@ async function captureAndAnalyze() {
         // Analyze with both backends in parallel
         await Promise.all([
             analyzeWithBackend(imageBase64, 'ollama', captureTime),
-            analyzeWithBackend(imageBase64, 'screen2words', captureTime)
+            // analyzeWithBackend(imageBase64, 'screen2words', captureTime)
         ]);
         
     } catch (error) {
         console.error('Error during capture and analysis:', error);
     }
 }
-

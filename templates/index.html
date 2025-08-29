@@ -6,9 +6,32 @@
 </head>
 <body>
     <div class="container">
+        <div class="camera-section">
+            <h2>Camera Feed</h2>
+            <div class="camera-preview">
+                <video id="camera-preview" class="camera-preview" autoplay playsinline></video>
+            </div>
+            <div class="camera-controls">
+                <button id="toggle-camera">Start Camera</button>
+                <select id="camera-device" style="display: none;">
+                    <option value="">Select Camera</option>
+                </select>
+            </div>
+        </div>
         <div class="screen-section">
             <h2>Screen Capture</h2>
-            <img id="screen-capture" class="screen-image" src="/static/placeholder.png" alt="Screen Capture">
+            <div class="preview-section">
+                <h3>Live Preview</h3>
+                <div class="preview-container">
+                    <video id="screen-preview" class="screen-preview" autoplay muted playsinline></video>
+                </div>
+            </div>
+            <div class="capture-section">
+                <h3>Captured Image</h3>
+                <div class="screenshot-container">
+                    <img id="screen-capture" class="screen-image" src="/static/placeholder.png" alt="Screen Capture">
+                </div>
+            </div>
             <div class="controls">
                 <button id="toggle-capture">Start Capture</button>
                 <select id="interval">
@@ -26,10 +49,10 @@
                     <h3>Ollama (LLaVA)</h3>
                     <textarea id="ollama-analysis" class="analysis-text" readonly></textarea>
                 </div>
-                <div class="analysis-box">
+                <!-- <div class="analysis-box">
                     <h3>Screen2Words</h3>
                     <textarea id="screen2words-analysis" class="analysis-text" readonly></textarea>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

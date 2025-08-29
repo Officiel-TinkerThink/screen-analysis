@@ -1,83 +1,228 @@
+/* ---------- root ---------- */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #f0f0f0;
-}
-
-.container {
+    background: #f0f0f0;
     display: flex;
-    gap: 20px;
-    max-width: 1400px;
-    margin: 0 auto;
+    padding: 0;
+    margin: 0;
 }
 
-.screen-section, .analysis-section {
+/* ---------- main grid ---------- */
+.container {
     flex: 1;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    align-items: start;
+    width: 100vw;
+    max-width: 100%;
+    margin: 0;
+    height: 100%;
+    min-height: 100vh;
+    grid-template-areas:
+        "camera screen"
+        "analysis analysis";
 }
 
-.screen-image {
+/* ---------- camera section ---------- */
+.camera-section {
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    grid-area: camera;
+}
+
+.camera-preview {
     width: 100%;
-    max-height: 600px;
+    aspect-ratio: 4/3;
+    background: #000;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.camera-preview video {
+    width: 100%;
+    height: 100%;
     object-fit: contain;
-    border: 1px solid #ddd;
-    margin-bottom: 20px;
+    background: #000;
+}
+
+.camera-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid #eee;
+    margin-top: auto;
+}
+
+/* ---------- screen section ---------- */
+.screen-section {
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    padding: 8px;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    position: relative;
+}
+
+.screen-section h2 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    color: #333;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.preview-section,
+.capture-section {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.preview-section h3,
+.capture-section h3 {
+    margin: 0 0 8px 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #444;
+}
+
+/* Shared styles for both containers */
+.screenshot-container, .preview-container {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background: #f9f9f9;
+    padding: 10px;
+    margin: 0 0 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.screen-image, .screen-preview {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
 }
 
 .controls {
-    margin-bottom: 20px;
-}
-
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    margin-right: 10px;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-select {
-    padding: 10px;
-    font-size: 16px;
-}
-
-.analysis-container {
     display: flex;
-    gap: 20px;
-    margin-top: 20px;
+    gap: 10px;
+    align-items: center;
+    padding: 15px 0 5px;
+    border-top: 1px solid #eee;
+    margin-top: auto; /* Push to bottom */
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+    z-index: 10;
 }
 
-.analysis-box {
-    flex: 1;
+/* ---------- analysis section ---------- */
+.analysis-section {
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    padding: 8px;
     display: flex;
     flex-direction: column;
-}
-
-.analysis-box h3 {
-    margin: 0 0 10px 0;
-    padding: 0;
-    color: #333;
-}
-
-.analysis-text {
+    gap: 8px;
+    height: 100%;
+    box-sizing: border-box;
+    min-height: 0;
     width: 100%;
-    height: 500px;
-    padding: 10px;
-    font-size: 14px;
-    line-height: 1.5;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    resize: none;
-    background-color: #f9f9f9;
+    margin: 0;
+    overflow: hidden;
+}
+.analysis-section h2{
+    margin:0 0 6px;
+    font-size:16px;
+}
+.analysis-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
+    min-height: 0; /* Allow flex item to shrink below content size */
+}
+.analysis-box{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+}
+.analysis-box h3{
+    margin:0 0 4px;
+    font-size:13px;
+}
+.analysis-text{
+    flex:1;
+    resize:none;
+    padding:8px;
+    font-size:12px;
+    border:1px solid #ddd;
+    border-radius:4px;
+    background:#f9f9f9;
+}
+
+/* ---------- buttons / selects ---------- */
+button{
+    padding:6px 12px;
+    font-size:13px;
+    border:none;
+    border-radius:4px;
+    background:#007bff;
+    color:#fff;
+    cursor:pointer;
+}
+button:hover{background:#0056b3;}
+select{
+    padding:6px;
+    font-size:13px;
+    min-width:100px;
+}
+
+/* ---------- side-by-side on large screens ---------- */
+@media (min-width:1024px){
+    .container{
+        grid-template-columns: minmax(300px, 30%) 1fr;  /* left | right */
+        grid-template-rows: 1fr;                       /* single row */
+    }
+    .screen-section {
+        flex-direction: column;
+    }
+    .preview-container {
+        height: 250px;
+    }
+    .screen-image {
+        max-height: 400px;
+    }
 }
