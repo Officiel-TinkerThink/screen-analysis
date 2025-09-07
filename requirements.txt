@@ -18,6 +18,9 @@ transformers>=4.55.4,<5.0.0
 torch>=2.8.0,<3.0.0
 sentencepiece>=0.1.99,<1.0.0
 protobuf>=4.0.0,<5.0.0
+timm
+accelerate
+# fastvlm @ git+https://github.com/apple/fastvlm.git
 
 # WebRTC and WebSockets
 # aiohttp and websockets are already dependencies of fastapi/uvicorn

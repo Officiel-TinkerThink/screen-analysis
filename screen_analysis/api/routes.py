@@ -12,11 +12,12 @@ from core.config import settings
 from models.schemas import AnalysisRequest, AnalysisResponse
 from services.ollama_service import analyze_with_ollama
 from services.screen2words_service import screen2words_service
+from services.fastvlm_service import fast_vlm_service
 from utils.image_utils import resize_image
+from screen_analysis.logger import GLOBAL_LOGGER as log
 
 router = APIRouter()
 templates = Jinja2Templates(directory=str(settings.TEMPLATES_DIR))
-logger = logging.getLogger(__name__)
 
 @router.get("/", response_class=HTMLResponse)
 async def root(request: Request):
@@ -28,9 +29,10 @@ async def analyze_image(request: AnalysisRequest):
     """
     Analyze an image using the specified backend.
     
-    Supports both Ollama and Screen2Words backends.
+    Supports Ollama, FastVLM and Screen2Words backends.
     """
     try:
+        log.info(f"Received analysis request for backend: {request.backend}")
         # Decode the base64 image
         try:
             image_data = base64.b64decode(request.image)
@@ -41,19 +43,30 @@ async def analyze_image(request: AnalysisRequest):
         start_time = time.time()
         
         # Route to the appropriate backend
-        if request.backend.lower() == "ollama":
+        backend_lower = request.backend.lower()
+        log.info(f"Processing with backend: {backend_lower}")
+        
+        if backend_lower == "ollama":
             model = request.model or "llava"
             analysis = analyze_with_ollama(image, request.prompt, model)
             backend_used = "ollama"
             model_used = model
             
-        elif request.backend.lower() == "screen2words":
+        elif backend_lower == "screen2words":
             analysis = screen2words_service.analyze(image, request.prompt)
             backend_used = "screen2words"
             model_used = screen2words_service.model_name
+
+        elif backend_lower == "fastvlm":
+            log.info("Calling FastVLM service...")
+            analysis = fast_vlm_service.analyze_image(image, request.prompt)
+            backend_used = "fastvlm"
+            model_used = fast_vlm_service.model_name
             
         else:
             raise HTTPException(status_code=400, detail=f"Unsupported backend: {request.backend}")
+
+        log.info(f"Inference using {backend_used} with model {model_used}")
         
         processing_time = time.time() - start_time
         

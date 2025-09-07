@@ -14,7 +14,8 @@ WORKDIR /app
 
 # Install minimal system dependencies
 RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y curl && \
+    apt-get install -y curl git && \
+
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 

@@ -2,9 +2,18 @@ let captureInterval;
 let isCapturing = false;
 let screenStream = null;
 let videoElement = null;
+let isOnCam = false;
+let cameraElement = null;
+let cameraStream = null;
+let currentCameraDeviceId = null;
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize elements
+    cameraElement = document.getElementById('camera-preview');
+    const toggleCameraBtn = document.getElementById('toggle-camera');
+    const cameraDeviceSelect = document.getElementById('camera-device');
+    
     // Initialize screen capture
     initScreenCapture();
 
@@ -28,7 +37,114 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+    
+    // Camera toggle button
+    toggleCameraBtn.addEventListener('click', async () => {
+        if (isOnCam) {
+            await closeCamera();
+            toggleCameraBtn.textContent = 'Start Camera';
+            cameraDeviceSelect.style.display = 'none';
+        } else {
+            await openCamera();
+            if (isOnCam) {
+                toggleCameraBtn.textContent = 'Stop Camera';
+                cameraDeviceSelect.style.display = 'inline-block';
+            }
+        }
+    });
+    
+    // Handle camera device change
+    cameraDeviceSelect.addEventListener('change', async () => {
+        if (isOnCam) {
+            currentCameraDeviceId = cameraDeviceSelect.value;
+            await openCamera();
+        }
+    });
 });
+
+/* Camera Section */
+
+async function openCamera() {
+    try {
+        // Stop any existing stream
+        if (cameraStream) {
+            cameraStream.getTracks().forEach(track => track.stop());
+        }
+
+        const constraints = {
+            video: {
+                width: { ideal: 1280 },
+                height: { ideal: 720 },
+                deviceId: currentCameraDeviceId ? { exact: currentCameraDeviceId } : undefined,
+                facingMode: currentCameraDeviceId ? undefined : 'user'
+            },
+            audio: false
+        };
+
+        // Get available devices if not already populated
+        if (currentCameraDeviceId === null) {
+            await populateCameraDevices();
+        }
+
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        cameraElement.srcObject = stream;
+        cameraStream = stream;
+        isOnCam = true;
+        
+        // Play the video element
+        await cameraElement.play();
+        
+        return true;
+    } catch (error) {
+        console.error('Error accessing camera:', error);
+        alert('Could not access the camera. Please ensure you have granted camera permissions.');
+        isOnCam = false;
+        return false;
+    }
+}
+
+async function closeCamera() {
+    if (cameraStream) {
+        cameraStream.getTracks().forEach(track => track.stop());
+        cameraStream = null;
+    }
+    if (cameraElement) {
+        cameraElement.srcObject = null;
+    }
+    isOnCam = false;
+    return true;
+}
+
+async function populateCameraDevices() {
+    try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const videoDevices = devices.filter(device => device.kind === 'videoinput');
+        const cameraSelect = document.getElementById('camera-device');
+        
+        // Clear existing options except the first one
+        while (cameraSelect.options.length > 1) {
+            cameraSelect.remove(1);
+        }
+        
+        // Add available cameras
+        videoDevices.forEach((device, index) => {
+            const option = document.createElement('option');
+            option.value = device.deviceId;
+            option.text = device.label || `Camera ${index + 1}`;
+            cameraSelect.appendChild(option);
+            
+            // Select the first camera by default
+            if (index === 0) {
+                currentCameraDeviceId = device.deviceId;
+            }
+        });
+        
+        return videoDevices.length > 0;
+    } catch (error) {
+        console.error('Error enumerating devices:', error);
+        return false;
+    }
+}
 
 async function initScreenCapture() {
     try {
@@ -108,7 +224,13 @@ function stopCapture() {
 }
 
 async function analyzeWithBackend(imageBase64, backend, captureTime) {
+    const textarea = document.getElementById(`${backend}-analysis`);
+    
     try {
+        // Show loading state
+        const originalValue = textarea.value;
+        textarea.value = `[${captureTime}] Analyzing...\n${originalValue}`;
+        
         const response = await fetch('/api/analyze', {
             method: 'POST',
             headers: {
@@ -121,14 +243,22 @@ async function analyzeWithBackend(imageBase64, backend, captureTime) {
             })
         });
         
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const analysisData = await response.json();
-        const textarea = document.getElementById(`${backend}-analysis`);
-        textarea.value = `[Captured: ${captureTime}]\n${analysisData.analysis}\n\n${textarea.value}`;
-        console.log(`Successfully Generate Analysis for ${backend}:`);
+        
+        // Format the analysis with timestamp and divider
+        const formattedAnalysis = `[${captureTime}] ${backend.toUpperCase()}\n${'='.repeat(40)}\n${analysisData.analysis}\n\n`;
+        
+        // Update the textarea with the new analysis at the top
+        textarea.value = formattedAnalysis + originalValue;
+        
+        console.log(`Successfully generated analysis for ${backend}`);
     } catch (error) {
         console.error(`Error with ${backend}:`, error);
-        const textarea = document.getElementById(`${backend}-analysis`);
-        textarea.value = `[Captured: ${captureTime}] Error: ${error.message}\n${textarea.value}`;
+        textarea.value = `[${captureTime}] Error: ${error.message}\n${textarea.value}`;
     }
 }
 
@@ -158,7 +288,8 @@ async function captureAndAnalyze() {
         
         // Analyze with both backends in parallel
         await Promise.all([
-            analyzeWithBackend(imageBase64, 'ollama', captureTime),
+            analyzeWithBackend(imageBase64, 'fastvlm', captureTime)
+            // analyzeWithBackend(imageBase64, 'ollama', captureTime),
             // analyzeWithBackend(imageBase64, 'screen2words', captureTime)
         ]);
         
