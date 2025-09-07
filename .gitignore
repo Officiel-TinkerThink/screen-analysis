@@ -4,7 +4,7 @@ app.log
 *.pyc
 
 */__pycache__/
-logs/
+logs
 __pycache__/
 docker_archive/
 
