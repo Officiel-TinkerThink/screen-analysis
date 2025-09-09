@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
-import axios from 'axios';
 
 interface VLMContextType {
   isLoaded: boolean;
@@ -32,33 +31,62 @@ export const VLMProvider = ({ children }: VLMProviderProps) => {
       throw new Error('Failed to get canvas context');
     }
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const image = canvas.toDataURL('image/jpeg').split(',')[1]; // Get base64 part
 
-    return new Promise((resolve, reject) => {
-      canvas.toBlob(async (blob) => {
-        if (!blob) {
-          return reject(new Error('Failed to create blob from canvas'));
+    try {
+      const response = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          image,
+          prompt,
+          backend: 'fastvlm',
+          stream: true,
+        }),
+      });
+
+      if (!response.body) {
+        throw new Error('Response body is null');
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let fullCaption = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) {
+          break;
         }
-
-        const formData = new FormData();
-        formData.append('file', blob, 'frame.png');
-        formData.append('prompt', prompt);
-        formData.append('backend', 'fastvlm');
-
-        try {
-          const response = await axios.post('/api/analyze/file', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });
-          const caption = response.data.analysis;
-          onCaptionUpdate(caption);
-          resolve(caption);
-        } catch (error) {
-          console.error('Error during inference:', error);
-          reject(error);
+        const chunk = decoder.decode(value, { stream: true });
+        const lines = chunk.split('\n');
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const jsonStr = line.substring(6);
+            if (jsonStr.trim()) {
+              try {
+                const data = JSON.parse(jsonStr);
+                if (data.analysis) {
+                  fullCaption += data.analysis;
+                  onCaptionUpdate(fullCaption);
+                }
+                if (data.error) {
+                  throw new Error(data.error);
+                }
+              } catch (e) {
+                console.error('Failed to parse JSON from stream:', jsonStr);
+              }
+            }
+          }
         }
-      }, 'image/png');
-    });
+      }
+      return fullCaption;
+    } catch (error) {
+      console.error('Error during streaming inference:', error);
+      throw error;
+    }
   }, []);
 
   const value = {

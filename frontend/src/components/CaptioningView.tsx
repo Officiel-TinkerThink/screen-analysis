@@ -42,8 +42,8 @@ function useCaptioningLoop(
         if (video && video.readyState >= 2 && !video.paused && video.videoWidth > 0) {
           try {
             const currentPrompt = promptRef.current || "";
-            const result = await runInference(video, currentPrompt, onCaptionUpdateRef.current);
-            if (result && !signal.aborted) onCaptionUpdateRef.current(result);
+            onCaptionUpdateRef.current(""); // Clear the caption
+            await runInference(video, currentPrompt, onCaptionUpdateRef.current);
           } catch (error) {
             if (!signal.aborted) {
               const message = error instanceof Error ? error.message : String(error);
