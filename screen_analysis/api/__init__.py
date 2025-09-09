@@ -20,13 +20,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount static files
-static_dir = Path(__file__).parent.parent.parent / "static"
-app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+
 
 # Import and include router
 from .routes import router as api_router
-app.include_router(api_router, prefix="/api")
+app.include_router(api_router, prefix="")
 
 # Health check endpoint
 @app.get("/health")

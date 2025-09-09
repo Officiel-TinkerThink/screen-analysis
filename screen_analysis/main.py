@@ -21,10 +21,10 @@ logging.basicConfig(
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
-    description="Dual-backend screen analysis application",
-    docs_url="/api/docs",
-    redoc_url="/api/redoc",
-    openapi_url="/api/openapi.json"
+    description="Screen Analysis application",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json"
 )
 
 # CORS middleware
@@ -36,11 +36,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount static files
-app.mount("/static", StaticFiles(directory=str(settings.STATIC_DIR)), name="static")
-
 # Include API routes
-app.include_router(api_router, prefix=settings.API_STR)
+app.include_router(api_router)
 
 # Exception handlers
 @app.exception_handler(RequestValidationError)

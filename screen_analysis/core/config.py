@@ -5,7 +5,7 @@ from pathlib import Path
 class Settings(BaseSettings):
     PROJECT_NAME: str = "Screen Analysis"
     VERSION: str = "1.0.0"
-    API_STR: str = "/api"
+    API_STR: str = ""
     
     # # Docker Ollama Settings
     # OLLAMA_HOST: str = os.getenv("OLLAMA_HOST", "ollama")

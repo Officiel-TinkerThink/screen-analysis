@@ -1,11 +1,13 @@
+import asyncio
 import base64
 import io
+import json
 import time
 from fastapi import APIRouter, HTTPException, UploadFile, File, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
 from PIL import Image
-from typing import Optional
+from typing import Optional, AsyncGenerator, Dict, Any
 import logging
 
 from core.config import settings
@@ -17,14 +19,12 @@ from utils.image_utils import resize_image
 from screen_analysis.logger import GLOBAL_LOGGER as log
 
 router = APIRouter()
-templates = Jinja2Templates(directory=str(settings.TEMPLATES_DIR))
 
-@router.get("/", response_class=HTMLResponse)
-async def root(request: Request):
-    """Serve the main application page."""
-    return templates.TemplateResponse("index.html", {"request": request})
+async def stream_generator(stream):
+    for chunk in stream:
+        yield chunk
 
-@router.post("/analyze", response_model=AnalysisResponse)
+@router.post("/analyze")
 async def analyze_image(request: AnalysisRequest):
     """
     Analyze an image using the specified backend.
@@ -46,7 +46,38 @@ async def analyze_image(request: AnalysisRequest):
         backend_lower = request.backend.lower()
         log.info(f"Processing with backend: {backend_lower}")
         
-        if backend_lower == "ollama":
+        if backend_lower == "fastvlm" and request.stream:
+            log.info("Calling FastVLM service with streaming...")
+            stream = fast_vlm_service.analyze_image(image, request.prompt, stream=True)
+            
+            async def event_stream():
+                try:
+                    for text_chunk in stream:
+                        # Send each chunk as an SSE event
+                        data = {
+                            "analysis": text_chunk,
+                            "processing_time": time.time() - start_time
+                        }
+                        yield f"data: {json.dumps(data)}\n\n"
+                        await asyncio.sleep(0)  # Allow other tasks to run
+                except Exception as e:
+                    log.error(f"Error in streaming response: {str(e)}")
+                    error_data = {
+                        "error": str(e),
+                        "processing_time": time.time() - start_time
+                    }
+                    yield f"data: {json.dumps(error_data)}\n\n"
+            return StreamingResponse(
+                event_stream(),
+                media_type="text/event-stream",
+                headers={
+                    'Cache-Control': 'no-cache',
+                    'Connection': 'keep-alive',
+                    'X-Accel-Buffering': 'no'  # Disable buffering in nginx if used
+                }
+            )
+
+        elif backend_lower == "ollama":
             model = request.model or "llava"
             analysis = analyze_with_ollama(image, request.prompt, model)
             backend_used = "ollama"
@@ -80,14 +111,14 @@ async def analyze_image(request: AnalysisRequest):
     except HTTPException:
         raise
     except Exception as e:
-        logger.exception("Error processing analysis request")
+        log.exception("Error processing analysis request")
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/analyze/file", response_model=AnalysisResponse)
 async def analyze_image_file(
     file: UploadFile = File(...),
     prompt: str = "Analyze this screen capture and describe what you see in detail.",
-    backend: str = "ollama",
+    backend: str = "fastvlm",
     model: Optional[str] = None
 ):
     """

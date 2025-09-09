@@ -6,8 +6,9 @@ class AnalysisRequest(BaseModel):
     image: str = Field(..., description="Base64 encoded image data")
     prompt: str = Field("Analyze this screen capture and describe what you see in detail.", 
                        description="Prompt/instructions for the analysis")
-    backend: str = Field("ollama", description="Backend to use for analysis (ollama or screen2words)")
+    backend: str = Field(..., description="Backend to use for analysis")
     model: Optional[str] = Field(None, description="Specific model to use with the backend")
+    stream: bool = Field(False, description="Whether to stream the response")
 
 class AnalysisResponse(BaseModel):
     """Schema for analysis response."""
